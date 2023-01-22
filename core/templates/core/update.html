@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block homelogin %}active{% endblock %}
+{% block customcss %}
+<link rel="stylesheet" href="{% static 'core/css/login_register_responsive.css' %}">
+{% endblock %}
+{% block main %}
+    <div id="container" class="container-sm w-50 mt-5 mb-5 shadow p-5">
+        <h3 class="text-center">Update You Data</h3>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" value="{{data.todo}}" name="todo" class="form-control">
+            <div class="text-center">
+                <a href="{% url 'home' %}" class="btn btn-primary mt-2">Back</a>
+                <input type="submit" value="Update" class="btn btn-success mt-2">
+            </div>
+        </form>
+    </div>
+{% endblock %}

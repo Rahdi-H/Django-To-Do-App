@@ -1,0 +1,34 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block homeactive %}active{% endblock %}
+{% block customcss %}
+<link rel="stylesheet" href="{% static 'core/css/login_register_responsive.css' %}">
+{% endblock %}
+{% block main %}
+    <div id="container" class="container w-50 mt-3">
+        <div class="text-center container shadow p-5">
+            <h3 class="text-center">Add Data</h3>
+            <div class="">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="todo" class="form-control" placeholder="What to do?">
+                    <input type="submit" value="Add" class="btn btn-success ms-2 mt-2">
+                </form>
+            </div>
+        </div>
+        <div class="container shadow p-5 mt-4 mb-5">
+            <h3 class="text-center">ToDo</h3>
+                    {% for dt in data %}
+                        <div class="d-flex">
+                            <span class="">{{dt.todo}}</span>
+                            <span class="text-right ms-auto">
+                                <a href="{% url 'edit' dt.id %}" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="{% url 'delete' dt.id %}" class="btn btn-danger btn-sm">Delete</a>
+                            </span>
+                        </div>
+                        <hr>
+                    {% endfor %}
+        </div>
+    </div>
+{% endblock %}
