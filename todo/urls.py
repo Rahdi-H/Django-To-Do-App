@@ -20,6 +20,10 @@ from core import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
+    path('profile/', views.profile, name='profile'),
+    path('changepassword/', views.changepassword, name='changepassword'),
+    path('deleteaccount/', views.deleteaccount, name='deleteaccount'),
+    path('deleteaccountconfirmation/', views.deleteAccountConfirmation, name='deleteconfirmation'),
     path('login/', views.signIn, name='login'),
     path('logout/', views.signOut, name='logout'),
     path('register/', views.register, name='register'),

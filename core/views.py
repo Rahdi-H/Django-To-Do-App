@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
-from .forms import UserRegistrationForm, LoginForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
+from .forms import UserRegistrationForm, LoginForm, UserPasswordChangeForm
 from .models import ToDo
 
 # Create your views here.
@@ -15,6 +19,43 @@ def home(request):
     else:
         return redirect('login')
     
+def profile(request):
+    if request.user.is_authenticated:
+        return render(request, 'core/profile.html')
+    else:
+        return redirect('login')
+    
+def changepassword(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = UserPasswordChangeForm(user=request.user, data=request.POST)
+            if form.is_valid():
+                form.save()
+                update_session_auth_hash(request, form.user)
+                messages.success(request, 'Successfully changed your password')
+                return HttpResponseRedirect('/profile/')
+            else:
+                messages.warning(request, 'you may entered incorrect old password or miss matched new password or maybe too weak password')
+                return redirect('changepassword')
+        else:
+            form = UserPasswordChangeForm(user=request.user)
+            return render(request, 'core/changepassword.html', {'form':form})
+    else:
+        return redirect('login')
+
+def deleteaccount(request):
+    if request.user.is_authenticated:
+        User.objects.get(pk=request.user.id).delete()
+        return redirect('login')
+    else:
+        return redirect('login')
+    
+def deleteAccountConfirmation(request):
+    if request.user.is_authenticated:
+        return render(request, 'core/accountdeleteconfirmation.html')
+    else:
+        return redirect('login')
+
 def register(request):
     if not request.user.is_authenticated:
         if request.method == 'POST':

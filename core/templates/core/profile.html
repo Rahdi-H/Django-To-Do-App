@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block homeprofile %}active{% endblock %}
+{% block customcss %}
+<link rel="stylesheet" href="{% static 'core/css/login_register_responsive.css' %}">
+{% endblock %}
+{% block main %}
+    <div id="container" class="container w-50 mt-5 mb-5 shadow p-5">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{message}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+        {% endif %}
+        <h3 class="text-center">{{user.username}}'s Profile</h3>
+        <div class="text-center">
+            <a href="{% url 'changepassword' %}" class="btn btn-warning btn-sm">Change Password</a>
+            <a href="{% url 'deleteconfirmation' %}" class="btn btn-danger btn-sm">Delete Account</a>
+        </div>
+    </div>
+{% endblock %}

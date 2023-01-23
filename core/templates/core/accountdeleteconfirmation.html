@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block homeprofile %}active{% endblock %}
+{% block customcss %}
+<link rel="stylesheet" href="{% static 'core/css/login_register_responsive.css' %}">
+{% endblock %}
+{% block main %}
+    <div id="container" class="container w-50 mt-5 mb-5 shadow p-5">
+        <h3 class="text-center">Are you sure you want to delete your account? All your data will be lost.</h3>
+        <div class="text-center">
+            <a href="{% url 'profile' %}" class="btn btn-warning btn-sm">Back</a>
+            <a href="{% url 'deleteaccount' %}" class="btn btn-danger btn-sm">Delete Account</a>
+        </div>
+    </div>
+{% endblock %}
